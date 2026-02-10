@@ -38,11 +38,11 @@
         <div class="fixed bottom-0 left-0 w-full bg-white p-4 shadow-[0_-4px_10px_rgba(0,0,0,0.1)] z-50">
             <div class="max-w-md mx-auto flex items-center justify-between gap-4">
                 <div class="bg-gray-100 px-4 py-2 rounded-lg flex-1">
-                    <span class="text-[10px] text-gray-500 uppercase block font-bold">Total Cuenta</span>
+                    <span class="text-[10px] text-gray-500 uppercase block font-bold">Total a Pagar</span>
                     <span id="grand-total" class="text-xl font-black text-green-600">$0</span>
                 </div>
                 <button onclick="generateInvoice()" class="bg-green-600 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 active:scale-95 transition text-sm">
-                    <i class="fab fa-whatsapp"></i> ENVIAR
+                    <i class="fab fa-whatsapp"></i> ENVIAR PEDIDO
                 </button>
             </div>
         </div>
@@ -53,9 +53,9 @@
     </section>
 
     <script>
-        // Datos actualizados: todas las pizzas a 6000
+        // Nombres de archivos corregidos según tu GitHub
         const menu = [
-            { id: 1, name: "Pizza Hawaiana", price: 6000, img: "pizza-hawaina.jpg" },
+            { id: 1, name: "Pizza Hawaiana", price: 6000, img: "pizza-hawaiana.jpg" },
             { id: 2, name: "Jamón con Queso", price: 6000, img: "pizza-jamon-con-queso.jpg" },
             { id: 3, name: "Pizza Ranchera", price: 6000, img: "pizza-ranchera.jpg" },
             { id: 4, name: "Pollo con Champiñones", price: 6000, img: "pizza-pollo-con-champiñones.JPG" }
@@ -103,7 +103,7 @@
             const payment = document.getElementById('c-payment').value;
             const obs = document.getElementById('c-obs').value;
 
-            if (!name || !address) return alert("Por favor ingresa nombre y dirección");
+            if (!name || !address) return alert("Por favor ingresa tu nombre y dirección");
 
             let subtotal = 0;
             let itemsText = "";
@@ -117,7 +117,7 @@
                 }
             });
 
-            if (subtotal === 0) return alert("El carrito está vacío");
+            if (subtotal === 0) return alert("Selecciona al menos una pizza");
 
             const invoice = `*ZONA PIZZA - PEDIDO NUEVO*%0A` +
                 `--------------------------------%0A` +
