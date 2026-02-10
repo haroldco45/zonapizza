@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-gray-100 pb-10">
+<body class="bg-gray-100 pb-32">
 
     <header class="bg-white p-4 text-center shadow-sm">
         <img src="zona-pizza.PNG" alt="Zona Pizza Logo" class="mx-auto w-32 mb-2">
@@ -19,10 +19,7 @@
 
     <section class="p-4 max-w-md mx-auto">
         <div class="bg-white p-4 rounded-xl shadow-md mb-6">
-            <h2 class="font-bold text-gray-700 mb-3 border-b pb-2 flex justify-between uppercase text-xs tracking-wider">
-                Datos del Cliente
-                <button onclick="toggleEdit()" class="text-blue-500 text-[10px] italic">Editar Datos</button>
-            </h2>
+            <h2 class="font-bold text-gray-700 mb-3 border-b pb-2 text-xs uppercase tracking-wider">Datos del Cliente</h2>
             <div id="customer-form" class="space-y-3">
                 <input type="text" id="c-name" placeholder="Nombre completo" class="w-full p-2 border rounded-lg text-sm">
                 <input type="text" id="c-address" placeholder="Dirección de entrega" class="w-full p-2 border rounded-lg text-sm">
@@ -31,32 +28,37 @@
                     <option value="Efectivo">Efectivo</option>
                     <option value="Nequi (310 676 4862)">Nequi (310 676 4862)</option>
                 </select>
-                <textarea id="c-obs" placeholder="Observaciones (ej. sin cebolla, traer cambio de $50k)" class="w-full p-2 border rounded-lg text-sm h-16"></textarea>
+                <textarea id="c-obs" placeholder="Observaciones..." class="w-full p-2 border rounded-lg text-sm h-16"></textarea>
             </div>
         </div>
 
-        <h2 class="font-bold text-gray-700 mb-4 px-2 uppercase text-xs tracking-wider">Nuestro Menú</h2>
-        <div id="menu-container" class="space-y-4">
+        <h2 class="font-bold text-gray-700 mb-4 px-2 text-xs uppercase tracking-wider">Nuestro Menú (Todas a $6.000)</h2>
+        <div id="menu-container" class="space-y-4 mb-6"></div>
+
+        <div class="fixed bottom-0 left-0 w-full bg-white p-4 shadow-[0_-4px_10px_rgba(0,0,0,0.1)] z-50">
+            <div class="max-w-md mx-auto flex items-center justify-between gap-4">
+                <div class="bg-gray-100 px-4 py-2 rounded-lg flex-1">
+                    <span class="text-[10px] text-gray-500 uppercase block font-bold">Total Cuenta</span>
+                    <span id="grand-total" class="text-xl font-black text-green-600">$0</span>
+                </div>
+                <button onclick="generateInvoice()" class="bg-green-600 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 active:scale-95 transition text-sm">
+                    <i class="fab fa-whatsapp"></i> ENVIAR
+                </button>
             </div>
+        </div>
 
-        <button onclick="generateInvoice()" class="w-full mt-8 bg-[#22c55e] text-white py-4 rounded-2xl font-bold shadow-lg flex items-center justify-center gap-3 active:scale-95 transition">
-            <i class="fab fa-whatsapp text-2xl"></i>
-            ENVIAR PEDIDO / FACTURA
-        </button>
-
-        <footer class="mt-8 text-center text-gray-400 text-[10px] uppercase tracking-widest">
-            <p>Gracias por preferirnos</p>
-            <p class="font-bold text-gray-500 mt-1">App desarrollada por VIBRAS POSITIVAS</p>
+        <footer class="mt-4 text-center text-gray-400 text-[10px] pb-10">
+            <p>App desarrollada por VIBRAS POSITIVAS</p>
         </footer>
     </section>
 
     <script>
-        // IMPORTANTE: Los nombres de archivos deben ser EXACTOS a los de tu GitHub
+        // Datos actualizados: todas las pizzas a 6000
         const menu = [
-            { id: 1, name: "Pizza Hawaiana", price: 18000, img: "pizza-hawaina.jpg" },
-            { id: 2, name: "Jamón con Queso", price: 17000, img: "pizza-jamon-con-queso.jpg" },
-            { id: 3, name: "Pizza Ranchera", price: 20000, img: "pizza-ranchera.jpg" },
-            { id: 4, name: "Pollo con Champiñones", price: 19500, img: "pizza-pollo-con-champiñones.JPG" }
+            { id: 1, name: "Pizza Hawaiana", price: 6000, img: "pizza-hawaina.jpg" },
+            { id: 2, name: "Jamón con Queso", price: 6000, img: "pizza-jamon-con-queso.jpg" },
+            { id: 3, name: "Pizza Ranchera", price: 6000, img: "pizza-ranchera.jpg" },
+            { id: 4, name: "Pollo con Champiñones", price: 6000, img: "pizza-pollo-con-champiñones.JPG" }
         ];
 
         let cart = {};
@@ -64,11 +66,11 @@
         function loadMenu() {
             const container = document.getElementById('menu-container');
             container.innerHTML = menu.map(item => `
-                <div class="bg-white p-3 rounded-xl shadow-sm flex items-center gap-4">
-                    <img src="${item.img}" class="w-20 h-20 object-cover rounded-lg bg-gray-100" onerror="this.src='https://via.placeholder.com/80?text=Pizza'">
+                <div class="bg-white p-3 rounded-xl shadow-sm flex items-center gap-4 border border-gray-100">
+                    <img src="${item.img}" class="w-20 h-20 object-cover rounded-lg bg-gray-50" onerror="this.src='https://via.placeholder.com/80?text=Pizza'">
                     <div class="flex-1">
                         <h3 class="font-bold text-gray-800 text-sm">${item.name}</h3>
-                        <p class="text-green-600 font-bold text-sm">$${item.price.toLocaleString()}</p>
+                        <p class="text-green-600 font-bold text-sm">$6.000</p>
                     </div>
                     <div class="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
                         <button onclick="updateQty(${item.id}, -1)" class="w-8 h-8 bg-white rounded shadow text-red-500 font-bold">-</button>
@@ -83,11 +85,15 @@
             if (!cart[id]) cart[id] = 0;
             cart[id] = Math.max(0, cart[id] + delta);
             document.getElementById(`qty-${id}`).innerText = cart[id];
+            calculateTotal();
         }
 
-        function toggleEdit() {
-            const inputs = document.querySelectorAll('#customer-form input, #customer-form textarea, #customer-form select');
-            inputs.forEach(i => i.disabled = !i.disabled);
+        function calculateTotal() {
+            let total = 0;
+            menu.forEach(item => {
+                total += (cart[item.id] || 0) * item.price;
+            });
+            document.getElementById('grand-total').innerText = `$${total.toLocaleString()}`;
         }
 
         function generateInvoice() {
@@ -97,10 +103,7 @@
             const payment = document.getElementById('c-payment').value;
             const obs = document.getElementById('c-obs').value;
 
-            if (!name || !address) {
-                alert("Por favor ingresa nombre y dirección");
-                return;
-            }
+            if (!name || !address) return alert("Por favor ingresa nombre y dirección");
 
             let subtotal = 0;
             let itemsText = "";
@@ -110,14 +113,11 @@
                 if (qty > 0) {
                     const lineTotal = qty * prod.price;
                     subtotal += lineTotal;
-                    itemsText += `✅ ${qty} x ${prod.name} ($${prod.price.toLocaleString()}) = $${lineTotal.toLocaleString()}%0A`;
+                    itemsText += `✅ ${qty} x ${prod.name} ($6.000) = $${lineTotal.toLocaleString()}%0A`;
                 }
             });
 
-            if (subtotal === 0) {
-                alert("El carrito está vacío. Añade al menos una pizza con el botón +");
-                return;
-            }
+            if (subtotal === 0) return alert("El carrito está vacío");
 
             const invoice = `*ZONA PIZZA - PEDIDO NUEVO*%0A` +
                 `--------------------------------%0A` +
@@ -136,7 +136,6 @@
             window.open(`https://wa.me/573136904886?text=${invoice}`, '_blank');
         }
 
-        // Ejecutar carga al abrir
         loadMenu();
     </script>
 </body>
