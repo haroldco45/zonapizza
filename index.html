@@ -6,41 +6,52 @@
     <title>Zona Pizza - Pedidos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .qty-input::-webkit-inner-spin-button { display: none; }
+    </style>
 </head>
-<body class="bg-gray-50 pb-24">
+<body class="bg-gray-100 pb-10">
 
-    <header class="bg-[#2a9d52] text-white p-5 sticky top-0 z-50 shadow-lg rounded-b-2xl">
-        <div class="flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl font-black italic tracking-tighter">ZONA PIZZA</h1>
-                <p class="text-[10px] uppercase tracking-widest opacity-80">Sabor que te mueve</p>
-            </div>
-            <div class="bg-white/20 p-2 rounded-full relative">
-                <i class="fas fa-pizza-slice text-xl"></i>
-                <span id="cart-count" class="absolute -top-1 -right-1 bg-red-600 text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">0</span>
-            </div>
+    <header class="bg-white p-4 text-center shadow-sm">
+        <img src="zona-pizza.PNG" alt="Zona Pizza Logo" class="mx-auto w-32 mb-2">
+        <div class="text-sm text-gray-600 font-medium">
+            <p><i class="fab fa-whatsapp text-green-500"></i> Domicilios: 313 690 4886</p>
+            <p><i class="fas fa-wallet text-blue-500"></i> Nequi: 310 676 4862</p>
         </div>
     </header>
 
-    <section class="p-4">
-        <div class="bg-green-50 border-l-4 border-green-500 p-3 rounded-r-lg shadow-sm flex items-center gap-3">
-            <i class="fas fa-mobile-alt text-green-600 text-xl"></i>
-            <div>
-                <p class="text-xs font-bold text-green-800">PAGA POR NEQUI</p>
-                <p class="text-sm font-mono text-green-700">310 676 4862</p>
+    <section class="p-4 max-w-md mx-auto">
+        <div class="bg-white p-4 rounded-xl shadow-md mb-6">
+            <h2 class="font-bold text-gray-700 mb-3 border-b pb-2 flex justify-between">
+                DATOS DEL CLIENTE
+                <button onclick="toggleEdit()" class="text-blue-500 text-xs italic">Editar Datos</button>
+            </h2>
+            <div id="customer-form" class="space-y-3">
+                <input type="text" id="c-name" placeholder="Nombre completo" class="w-full p-2 border rounded-lg text-sm">
+                <input type="text" id="c-address" placeholder="Dirección de entrega" class="w-full p-2 border rounded-lg text-sm">
+                <input type="tel" id="c-phone" placeholder="Celular" class="w-full p-2 border rounded-lg text-sm">
+                <select id="c-payment" class="w-full p-2 border rounded-lg text-sm bg-gray-50">
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Nequi (310 676 4862)">Nequi (310 676 4862)</option>
+                </select>
+                <textarea id="c-obs" placeholder="Observaciones (ej. sin cebolla, traer cambio de $50k)" class="w-full p-2 border rounded-lg text-sm h-16"></textarea>
             </div>
         </div>
-    </section>
 
-    <main id="menu-container" class="p-4 grid grid-cols-1 gap-4">
-        </main>
+        <h2 class="font-bold text-gray-700 mb-4 px-2">NUESTRO MENÚ</h2>
+        <div id="menu-container" class="space-y-4">
+            </div>
 
-    <div class="fixed bottom-6 right-6 z-50">
-        <button onclick="sendOrder()" class="bg-[#25D366] text-white p-4 rounded-full shadow-2xl flex items-center gap-2 font-bold animate-bounce">
+        <button onclick="generateInvoice()" class="w-full mt-8 bg-green-600 text-white py-4 rounded-2xl font-bold shadow-lg flex items-center justify-center gap-3 active:scale-95 transition">
             <i class="fab fa-whatsapp text-2xl"></i>
-            <span>Pedir Domicilio</span>
+            ENVIAR PEDIDO / FACTURA
         </button>
-    </div>
+
+        <footer class="mt-8 text-center text-gray-400 text-xs">
+            <p>Gracias por preferirnos</p>
+            <p class="font-bold text-gray-500 mt-1">App desarrollada por VIBRAS POSITIVAS</p>
+        </footer>
+    </section>
 
     <script src="app.js"></script>
 </body>
