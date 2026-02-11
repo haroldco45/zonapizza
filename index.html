@@ -9,56 +9,85 @@
 </head>
 <body class="bg-gray-100 pb-32">
 
-    <header class="bg-white p-4 text-center shadow-sm">
-        <img src="zona-pizza.PNG" alt="Zona Pizza Logo" class="mx-auto w-32 mb-2">
-        <div class="text-sm text-gray-600 font-medium">
-            <p><i class="fab fa-whatsapp text-green-500"></i> Domicilios: 313 690 4886</p>
-            <p><i class="fas fa-wallet text-blue-500"></i> Nequi: 310 676 4862</p>
-        </div>
-    </header>
+    <div id="block-screen" class="hidden fixed inset-0 bg-white z-[100] flex flex-col items-center justify-center p-6 text-center">
+        <i class="fas fa-lock text-red-500 text-6xl mb-4"></i>
+        <h1 class="text-2xl font-bold text-gray-800">Suscripción Vencida</h1>
+        <p class="text-gray-600 mt-2">Para seguir usando la plataforma de Zona Pizza, por favor solicita la renovación.</p>
+        <a href="https://wa.me/573136904886?text=Hola, mi app de Zona Pizza venció. Deseo renovar la suscripción." 
+           class="mt-6 bg-blue-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg">
+            Contactar Soporte
+        </a>
+        <p class="mt-10 text-[10px] text-gray-400 font-bold uppercase tracking-widest">App desarrollada por VIBRAS POSITIVAS</p>
+    </div>
 
-    <section class="p-4 max-w-md mx-auto">
-        <div class="bg-white p-4 rounded-xl shadow-md mb-6">
-            <h2 class="font-bold text-gray-700 mb-3 border-b pb-2 text-xs uppercase tracking-wider">Datos del Cliente</h2>
-            <div id="customer-form" class="space-y-3">
-                <input type="text" id="c-name" placeholder="Nombre completo" class="w-full p-2 border rounded-lg text-sm">
-                <input type="text" id="c-address" placeholder="Dirección de entrega" class="w-full p-2 border rounded-lg text-sm">
-                <input type="tel" id="c-phone" placeholder="Celular" class="w-full p-2 border rounded-lg text-sm">
-                <select id="c-payment" class="w-full p-2 border rounded-lg text-sm bg-gray-50">
-                    <option value="Efectivo">Efectivo</option>
-                    <option value="Nequi (310 676 4862)">Nequi (310 676 4862)</option>
-                </select>
-                <textarea id="c-obs" placeholder="Observaciones..." class="w-full p-2 border rounded-lg text-sm h-16"></textarea>
+    <div id="app-content">
+        <header class="bg-white p-4 text-center shadow-sm">
+            <img src="zona-pizza.PNG" alt="Zona Pizza Logo" class="mx-auto w-32 mb-2">
+            <div class="text-sm text-gray-600 font-medium">
+                <p><i class="fab fa-whatsapp text-green-500"></i> Domicilios: 313 690 4886</p>
+                <p><i class="fas fa-wallet text-blue-500"></i> Nequi: 310 676 4862</p>
             </div>
-        </div>
+        </header>
 
-        <h2 class="font-bold text-gray-700 mb-4 px-2 text-xs uppercase tracking-wider">Nuestro Menú (Todas a $6.000)</h2>
-        <div id="menu-container" class="space-y-4 mb-6"></div>
+        <section class="p-4 max-w-md mx-auto">
+            <div class="bg-white p-4 rounded-xl shadow-md mb-6 border-t-4 border-green-600">
+                <h2 class="font-bold text-gray-700 mb-3 border-b pb-2 text-xs uppercase tracking-wider flex justify-between">
+                    Datos del Cliente
+                    <button onclick="toggleEdit()" class="text-blue-500 text-[10px] italic">Editar Datos</button>
+                </h2>
+                <div id="customer-form" class="space-y-3">
+                    <input type="text" id="c-name" placeholder="Nombre completo" class="w-full p-2 border rounded-lg text-sm">
+                    <input type="text" id="c-address" placeholder="Dirección de entrega" class="w-full p-2 border rounded-lg text-sm">
+                    <input type="tel" id="c-phone" placeholder="Celular" class="w-full p-2 border rounded-lg text-sm">
+                    <select id="c-payment" class="w-full p-2 border rounded-lg text-sm bg-gray-50">
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Nequi (310 676 4862)">Nequi (310 676 4862)</option>
+                    </select>
+                    <textarea id="c-obs" placeholder="Observaciones (ej. portería, sin cebolla...)" class="w-full p-2 border rounded-lg text-sm h-16"></textarea>
+                </div>
+            </div>
+
+            <h2 class="font-bold text-gray-700 mb-4 px-2 text-xs uppercase tracking-wider">Nuestro Menú</h2>
+            <div id="menu-container" class="space-y-4 mb-6"></div>
+
+            <footer class="mt-4 text-center text-gray-400 text-[10px] pb-10">
+                <p>¡Gracias por preferirnos!</p>
+                <p class="font-bold text-gray-500 mt-1 uppercase">App desarrollada por VIBRAS POSITIVAS</p>
+            </footer>
+        </section>
 
         <div class="fixed bottom-0 left-0 w-full bg-white p-4 shadow-[0_-4px_10px_rgba(0,0,0,0.1)] z-50">
             <div class="max-w-md mx-auto flex items-center justify-between gap-4">
-                <div class="bg-gray-100 px-4 py-2 rounded-lg flex-1">
+                <div class="bg-gray-100 px-4 py-2 rounded-lg flex-1 border border-gray-200">
                     <span class="text-[10px] text-gray-500 uppercase block font-bold">Total a Pagar</span>
                     <span id="grand-total" class="text-xl font-black text-green-600">$0</span>
                 </div>
-                <button onclick="generateInvoice()" class="bg-green-600 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 active:scale-95 transition text-sm">
+                <button onclick="generateInvoice()" class="bg-green-600 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 active:scale-95 transition text-sm shadow-lg shadow-green-200">
                     <i class="fab fa-whatsapp"></i> ENVIAR PEDIDO
                 </button>
             </div>
         </div>
-
-        <footer class="mt-4 text-center text-gray-400 text-[10px] pb-10">
-            <p>App desarrollada por VIBRAS POSITIVAS</p>
-        </footer>
-    </section>
+    </div>
 
     <script>
-        // Nombres de archivos corregidos según tu GitHub
+        // --- CONTROL DE SUSCRIPCIÓN ---
+        // Fecha: Año, Mes (0=Ene, 1=Feb...), Día
+        const FECHA_VENCE = new Date(2026, 5, 30); // Ejemplo: Vence 30 de Junio 2026
+
+        function checkSubscription() {
+            const hoy = new Date();
+            if (hoy > FECHA_VENCE) {
+                document.getElementById('block-screen').classList.remove('hidden');
+                document.getElementById('app-content').classList.add('hidden');
+            }
+        }
+
+        // --- CATÁLOGO DE PRODUCTOS (Precios Actualizados) ---
         const menu = [
             { id: 1, name: "Pizza Hawaiana", price: 6000, img: "pizza-hawaiana.jpg" },
             { id: 2, name: "Jamón con Queso", price: 6000, img: "pizza-jamon-con-queso.jpg" },
-            { id: 3, name: "Pizza Ranchera", price: 6000, img: "pizza-ranchera.jpg" },
-            { id: 4, name: "Pollo con Champiñones", price: 6000, img: "pizza-pollo-con-champiñones.JPG" }
+            { id: 3, name: "Pizza Ranchera", price: 7000, img: "pizza-ranchera.jpg" },
+            { id: 4, name: "Pollo con Champiñones", price: 7000, img: "pizza-pollo-con-champiñones.JPG" }
         ];
 
         let cart = {};
@@ -69,10 +98,10 @@
                 <div class="bg-white p-3 rounded-xl shadow-sm flex items-center gap-4 border border-gray-100">
                     <img src="${item.img}" class="w-20 h-20 object-cover rounded-lg bg-gray-50" onerror="this.src='https://via.placeholder.com/80?text=Pizza'">
                     <div class="flex-1">
-                        <h3 class="font-bold text-gray-800 text-sm">${item.name}</h3>
-                        <p class="text-green-600 font-bold text-sm">$6.000</p>
+                        <h3 class="font-bold text-gray-800 text-sm leading-tight">${item.name}</h3>
+                        <p class="text-green-600 font-bold text-sm">$${item.price.toLocaleString()}</p>
                     </div>
-                    <div class="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
+                    <div class="flex items-center gap-2 bg-gray-100 rounded-lg p-1 border">
                         <button onclick="updateQty(${item.id}, -1)" class="w-8 h-8 bg-white rounded shadow text-red-500 font-bold">-</button>
                         <span id="qty-${item.id}" class="w-6 text-center font-bold text-sm">0</span>
                         <button onclick="updateQty(${item.id}, 1)" class="w-8 h-8 bg-white rounded shadow text-green-500 font-bold">+</button>
@@ -96,6 +125,11 @@
             document.getElementById('grand-total').innerText = `$${total.toLocaleString()}`;
         }
 
+        function toggleEdit() {
+            const inputs = document.querySelectorAll('#customer-form input, #customer-form textarea, #customer-form select');
+            inputs.forEach(i => i.disabled = !i.disabled);
+        }
+
         function generateInvoice() {
             const name = document.getElementById('c-name').value;
             const address = document.getElementById('c-address').value;
@@ -103,21 +137,21 @@
             const payment = document.getElementById('c-payment').value;
             const obs = document.getElementById('c-obs').value;
 
-            if (!name || !address) return alert("Por favor ingresa tu nombre y dirección");
+            if (!name || !address) return alert("Por favor, completa Nombre y Dirección.");
 
-            let subtotal = 0;
+            let totalCuenta = 0;
             let itemsText = "";
 
             menu.forEach(prod => {
                 const qty = cart[prod.id] || 0;
                 if (qty > 0) {
                     const lineTotal = qty * prod.price;
-                    subtotal += lineTotal;
-                    itemsText += `✅ ${qty} x ${prod.name} ($6.000) = $${lineTotal.toLocaleString()}%0A`;
+                    totalCuenta += lineTotal;
+                    itemsText += `✅ ${qty} x ${prod.name} ($${prod.price.toLocaleString()}) = $${lineTotal.toLocaleString()}%0A`;
                 }
             });
 
-            if (subtotal === 0) return alert("Selecciona al menos una pizza");
+            if (totalCuenta === 0) return alert("El pedido está vacío.");
 
             const invoice = `*ZONA PIZZA - PEDIDO NUEVO*%0A` +
                 `--------------------------------%0A` +
@@ -125,17 +159,19 @@
                 `*DIR:* ${address}%0A` +
                 `*TEL:* ${phone}%0A` +
                 `--------------------------------%0A` +
-                `*DETALLE:*%0A${itemsText}` +
+                `*FACTURA:*%0A${itemsText}` +
                 `--------------------------------%0A` +
-                `*TOTAL A PAGAR: $${subtotal.toLocaleString()}*%0A` +
+                `*TOTAL A PAGAR: $${totalCuenta.toLocaleString()}*%0A` +
                 `*PAGO:* ${payment}%0A` +
                 `*OBS:* ${obs || 'Ninguna'}%0A%0A` +
-                `¡Gracias por preferirnos!%0A` +
+                `¡Muchas gracias!%0A` +
                 `_App desarrollada por VIBRAS POSITIVAS_`;
 
             window.open(`https://wa.me/573136904886?text=${invoice}`, '_blank');
         }
 
+        // Inicio
+        checkSubscription();
         loadMenu();
     </script>
 </body>
